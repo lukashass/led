@@ -12,6 +12,8 @@ var app = new Vue({
     'connected': false,
     'debug': false,
 
+    'beta': 0,
+
     'auth': false,
     'status': false,
     'scripts': null,
@@ -178,3 +180,14 @@ function getCookie (name) {
   var value = new RegExp(name + '=([^;]+)').exec(document.cookie)
   return (value != null) ? unescape(value[1]) : null
 }
+
+function handleOrientation(event) {
+  let newBeta = Math.round(event.beta / 10  )
+  if(newBeta !== app.beta){
+    console.log(newBeta > app.beta);
+    app.input(newBeta > app.beta)
+    app.beta = newBeta
+  }
+}
+
+window.addEventListener('deviceorientation', handleOrientation);

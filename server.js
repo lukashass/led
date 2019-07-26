@@ -91,6 +91,10 @@ function init () {
         case 'stop_script':
           stopScript()
           break
+        case 'input':
+          if(data.event != null) {
+            Matrix.control(data.event)
+          }
       }
     } else {
       // public commands
@@ -127,8 +131,7 @@ function broadcastLed (id, rgb) {
     'rgb': rgb
   }, true)
 
-  /*
-  if (Matrix.connected) {
+  if (!Matrix.connected) {
     let x = Math.floor(id / Matrix.size)
     let y = id % Matrix.size
     if (y % 2 === 0) {
@@ -137,17 +140,18 @@ function broadcastLed (id, rgb) {
     id = (y * Matrix.size + x)
     // id = id < 10 ? '00' + id : (id < 100) ? '0' + id : id
     var data = []
+    data.push(1)
     data.push(id)
     data.push(rgb.r)
     data.push(rgb.g)
     data.push(rgb.b)
+    console.log(data);
     serial.write(data, (err) => {
       if (err) {
         log('Serial Error: ' + err.message)
       }
     })
   }
-  */
 }
 
 function showLeds () {

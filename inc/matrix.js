@@ -1,6 +1,6 @@
 'use strict'
 
-const ACTIONS = Object.freeze({'none': 0, 'start': 1, 'stop': 2, 'resume': 3, 'pause': 4})
+const ACTIONS = Object.freeze({'none': 0, 'start': 1, 'stop': 2, 'resume': 3, 'pause': 4, 'control': 5})
 
 const EventEmitter = require('events')
 class MyEmitter extends EventEmitter {}
@@ -23,6 +23,7 @@ exports = module.exports = {
   'stop': stop,
   'resume': resume,
   'pause': pause,
+  'control': control,
   'on': on,
   'onSystem': onSystem,
   'size': size,
@@ -76,6 +77,10 @@ function resume () {
 
 function pause () {
   action = ACTIONS.pause
+}
+
+function control (data) {
+  scriptEvents.emit('input', data)
 }
 
 function loop () {
