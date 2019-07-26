@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  ledmatrix:
+    build: .
+    environment:
+      PORT: 8080
+      NODE_ENV: development
+    restart: always
+    volumes:
+      - ../:/app
+
+  ledmatrix-spa:
+    build: .
+    environment:
+      PORT: 8080
+      NODE_ENV: development
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ../spa:/app

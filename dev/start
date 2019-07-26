@@ -1,0 +1,14 @@
+#! /bin/sh
+
+# check initial setup
+if [ ! -f /setup_done ]; then
+  npm install
+
+  echo "" > /setup_done
+fi
+
+if [[ -n "${NODE_ENV}" ]] && [[ "${NODE_ENV}" == "development" ]]; then
+  npm run dev
+else
+  npm run start
+fi
